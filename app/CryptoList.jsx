@@ -80,7 +80,14 @@ const CryptoList = () => {
                 />
                 <Text>Market Cap Rank: {item.market_data.market_cap_rank}</Text>
                 <Text>Price: {item.market_data.current_price[curr]}</Text>
-                <Text>
+                <Text
+                  style={[
+                    styles.text,
+                    item.market_data.price_change_percentage_24h < 0
+                      ? styles.textinvalid
+                      : styles.textvalid,
+                  ]}
+                >
                   24hr Change:{" "}
                   {decimal2(item.market_data.price_change_percentage_24h) + "%"}
                 </Text>
@@ -109,15 +116,18 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+  text: {
+    backgroundColor: "white",
   },
-  logo: {
-    width: "100%",
-    height: 10,
+  textvalid: {
+    color: "green",
+  },
+  textinvalid: {
+    color: "red",
+    borderWidth: 2,
+    borderColor: "red",
+    borderRadius: 5,
+    padding: 10,
   },
 });
 
