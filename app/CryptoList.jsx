@@ -33,6 +33,15 @@ const CryptoList = () => {
   // console.log(coinArray[0].symbol);
   // console.log(coinArray[0].image.thumb);
 
+  function decimal(x) {
+    const deci = Number.parseFloat(x).toFixed(4);
+    return deci;
+  }
+  function decimal2(x) {
+    const deci2 = Number.parseFloat(x).toFixed(2);
+    return deci2;
+  }
+
   return (
     <View style={{ flex: 1, padding: 24 }}>
       {isLoading ? (
@@ -73,14 +82,16 @@ const CryptoList = () => {
                 <Text>Price: {item.market_data.current_price[curr]}</Text>
                 <Text>
                   24hr Change:{" "}
-                  {item.market_data.price_change_percentage_24h + "%"}
+                  {decimal2(item.market_data.price_change_percentage_24h) + "%"}
                 </Text>
                 <Text>
-                  Market Cap: {item.market_data.market_cap[curr] / 1000000000}{" "}
-                  Bil {curr.toUpperCase()}
+                  Market Cap:{" "}
+                  {decimal(item.market_data.market_cap[curr] / 1000000000)} Bil{" "}
+                  {curr.toUpperCase()}
                 </Text>
                 <Text>
-                  Cir Supply: {item.market_data.circulating_supply / 1000000000}{" "}
+                  Cir Supply:{" "}
+                  {decimal(item.market_data.circulating_supply / 1000000000)}{" "}
                   Bil {item.symbol.toUpperCase()}
                   {"\n"}
                 </Text>
