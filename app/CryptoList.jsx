@@ -82,14 +82,15 @@ const CryptoList = () => {
             CRYPTOCURRENCY PRICES BY MARKET CAP:
           </Text>
           <FlatList
+            contentContainerStyle={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             data={coinArray}
             keyExtractor={({ id }, index) => id}
+            horizontal="true"
             renderItem={({ item }) => (
-              <View
-                style={{
-                  paddingHorizontal: 10,
-                }}
-              >
+              <View style={[styles.coinContainer]}>
                 <Text>{item?.symbol.toUpperCase()}</Text>
                 <Text>{item?.id.toUpperCase()}</Text>
                 <Image
@@ -97,7 +98,14 @@ const CryptoList = () => {
                   source={{ uri: item?.image.small }}
                 />
                 <Text>Market Cap Rank: {item.market_data.market_cap_rank}</Text>
-                <Text>Price: {item.market_data.current_price[curr]}</Text>
+                <Text
+                  style={{
+                    color: "blue",
+                  }}
+                >
+                  Price: {curr.toUpperCase()}{" "}
+                  {item.market_data.current_price[curr]}
+                </Text>
                 <Text
                   style={[
                     styles.text,
@@ -118,7 +126,7 @@ const CryptoList = () => {
                   Cir Supply:{" "}
                   {decimal(item.market_data.circulating_supply / 1000000000)}{" "}
                   Bil {item.symbol.toUpperCase()}
-                  {"\n"}
+                  {/* {"\n"} */}
                 </Text>
               </View>
             )}
@@ -146,6 +154,17 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderRadius: 5,
     padding: 10,
+  },
+  coinContainer: {
+    borderWidth: 2,
+    borderRadius: 45,
+    borderColor: "blue",
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  coinText: {
+    textAlign: "center",
   },
 });
 
