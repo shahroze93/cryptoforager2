@@ -9,7 +9,7 @@ export default function App() {
       <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
         <CryptoList />
       </SafeAreaView>
-      <SafeAreaView style={{ flex: 0.1, backgroundColor: "red" }} />
+      <View style={{ flex: 0.1, backgroundColor: "blue" }} />
     </Fragment>
   );
 }

@@ -3,6 +3,7 @@ import {
   FlatList,
   Text,
   View,
+  SafeAreaView,
   StyleSheet,
   StatusBar,
   Image,
@@ -43,7 +44,12 @@ const CryptoList = () => {
   }
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <View
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === "android" ? 40 : 10,
+      }}
+    >
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -54,24 +60,36 @@ const CryptoList = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text style={{ fontSize: 18, color: "green", textAlign: "center" }}>
-            Text
+          <Text
+            style={{
+              fontSize: 18,
+              color: "orange",
+              textAlign: "center",
+              backgroundColor: "blue",
+              fontWeight: "bold",
+            }}
+          >
+            CRYPTOFORAGER
           </Text>
           <Text
             style={{
               fontSize: 14,
-              color: "green",
+              color: "blue",
               textAlign: "center",
               paddingBottom: 10,
             }}
           >
-            Articles:
+            CRYPTOCURRENCY PRICES BY MARKET CAP:
           </Text>
           <FlatList
             data={coinArray}
             keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
-              <View>
+              <View
+                style={{
+                  paddingHorizontal: 10,
+                }}
+              >
                 <Text>{item?.symbol.toUpperCase()}</Text>
                 <Text>{item?.id.toUpperCase()}</Text>
                 <Image
