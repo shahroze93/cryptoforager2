@@ -73,7 +73,7 @@ const CryptoList = () => {
           </Text>
           <Text
             style={{
-              fontSize: 14,
+              // fontSize: 14,
               color: "blue",
               textAlign: "center",
               paddingBottom: 10,
@@ -82,52 +82,58 @@ const CryptoList = () => {
             CRYPTOCURRENCY PRICES BY MARKET CAP:
           </Text>
           <FlatList
-            contentContainerStyle={{
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            contentContainerStyle={
+              {
+                // maxWidth: "45%",
+              }
+            }
+            numColumns={2}
+            columnWrapperStyle={styles.row}
             data={coinArray}
             keyExtractor={({ id }, index) => id}
-            horizontal="true"
             renderItem={({ item }) => (
-              <View style={[styles.coinContainer]}>
-                <Text>{item?.symbol.toUpperCase()}</Text>
-                <Text>{item?.id.toUpperCase()}</Text>
-                <Image
-                  style={{ height: 50, width: 50 }}
-                  source={{ uri: item?.image.small }}
-                />
-                <Text>Market Cap Rank: {item.market_data.market_cap_rank}</Text>
-                <Text
-                  style={{
-                    color: "blue",
-                  }}
-                >
-                  Price: {curr.toUpperCase()}{" "}
-                  {item.market_data.current_price[curr]}
-                </Text>
-                <Text
-                  style={[
-                    styles.text,
-                    item.market_data.price_change_percentage_24h < 0
-                      ? styles.textinvalid
-                      : styles.textvalid,
-                  ]}
-                >
-                  24hr Change:{" "}
-                  {decimal2(item.market_data.price_change_percentage_24h) + "%"}
-                </Text>
-                <Text>
-                  Market Cap:{" "}
-                  {decimal(item.market_data.market_cap[curr] / 1000000000)} Bil{" "}
-                  {curr.toUpperCase()}
-                </Text>
-                <Text>
-                  Cir Supply:{" "}
-                  {decimal(item.market_data.circulating_supply / 1000000000)}{" "}
-                  Bil {item.symbol.toUpperCase()}
-                  {/* {"\n"} */}
-                </Text>
+              <View>
+                <View style={[styles.coinContainer]}>
+                  <Text>{item?.symbol.toUpperCase()}</Text>
+                  <Text>{item?.id.toUpperCase()}</Text>
+                  <Image
+                    style={{ height: 50, width: 50 }}
+                    source={{ uri: item?.image.small }}
+                  />
+                  <Text>
+                    Market Cap Rank: {item.market_data.market_cap_rank}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "blue",
+                    }}
+                  >
+                    Price: {curr.toUpperCase()}{" "}
+                    {item.market_data.current_price[curr]}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.text,
+                      item.market_data.price_change_percentage_24h < 0
+                        ? styles.textinvalid
+                        : styles.textvalid,
+                    ]}
+                  >
+                    24hr Change:{" "}
+                    {decimal2(item.market_data.price_change_percentage_24h) +
+                      "%"}
+                  </Text>
+                  <Text>
+                    Market Cap:{" "}
+                    {decimal(item.market_data.market_cap[curr] / 1000000000)}{" "}
+                    Bil {curr.toUpperCase()}
+                  </Text>
+                  <Text>
+                    Cir Supply:{" "}
+                    {decimal(item.market_data.circulating_supply / 1000000000)}{" "}
+                    Bil {item.symbol.toUpperCase()}
+                  </Text>
+                </View>
               </View>
             )}
           />
@@ -141,6 +147,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    paddingHorizontal: 20,
   },
   text: {
     backgroundColor: "white",
@@ -162,9 +169,16 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
+    maxWidth: 170,
+    margin: 5,
   },
   coinText: {
-    textAlign: "center",
+    // textAlign: "center",
+  },
+  row: {
+    flex: 1,
+    justifyContent: "space-around",
+    paddingHorizontal: 20,
   },
 });
 
