@@ -7,29 +7,33 @@ import {
   StyleSheet,
   StatusBar,
   Image,
+  RefreshControl,
 } from "react-native";
 
 const CryptoList = () => {
   const [isLoading, setLoading] = useState(true);
   const [coinArray, setCoinArray] = useState([]);
-  // const [data2, setData2] = useState([]);
-  // const [info, setInfo] = useState([]);
-  // const [query, setQuery] = useState("bitcoin");
+  const [refreshing, setRefreshing] = useState(true);
   const [curr, setCurr] = useState("usd");
   // console.log(data);
-  // // console.log(Object.values(data));
+  // console.log(Object.values(data));
   // console.log(data[query]);
   // console.log(info);
-  console.log(coinArray);
+  // console.log(coinArray);
 
   useEffect(() => {
+    getApiData();
+  }, []);
+
+  const getApiData = () => {
     fetch("https://api.coingecko.com/api/v3/coins")
       .then((response) => response.json())
       .then((json) => setCoinArray(json))
+      .then(() => setRefreshing(false))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
-  }, []);
-
+    console.log("refreshed");
+  };
   // console.log(coinArray);
   // console.log(coinArray[0].symbol);
   // console.log(coinArray[0].image.thumb);
@@ -73,7 +77,6 @@ const CryptoList = () => {
           </Text>
           <Text
             style={{
-              // fontSize: 14,
               color: "blue",
               textAlign: "center",
               paddingBottom: 10,
@@ -82,14 +85,13 @@ const CryptoList = () => {
             CRYPTOCURRENCY PRICES BY MARKET CAP:
           </Text>
           <FlatList
-            contentContainerStyle={
-              {
-                // maxWidth: "45%",
-              }
-            }
             numColumns={2}
             columnWrapperStyle={styles.row}
+            enabled="true"
             data={coinArray}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={getApiData} />
+            }
             keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
               <View>
